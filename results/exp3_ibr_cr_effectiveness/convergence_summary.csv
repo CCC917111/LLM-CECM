@@ -1,0 +1,4 @@
+metric,level0_baseline,ibr_adf_agent,change
+convergence_round,not converged within 72 rounds,31,
+avg_price_sd_cny_per_mwh,5.49,2.69,-51%
+avg_agent_profit,reference,+12.3% vs. baseline,+12.3%

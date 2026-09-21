@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# Secrets
+.env
+
+# Simulation outputs written by run_experiments.py (paper results live in /results)
+src/results/
+*.log
+rl_tensorboard_logs/
+tensorboard_logs/
+
+# Raw AEMO downloads / caches used by the data-preparation scripts
+src/downloads/
+src/data_integration/data_cache/
+
+# OS / IDE
+.DS_Store
+.vscode/
+.idea/

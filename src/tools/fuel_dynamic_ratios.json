@@ -1,0 +1,42 @@
+{
+  "Black_Coal": {
+    "pmin_ratio": 0.5395081977230647,
+    "ramp_up_ratio": 0.1814768525469999,
+    "ramp_down_ratio": 0.18197603559570055
+  },
+  "Wind": {
+    "pmin_ratio": 0.03936348408710218,
+    "ramp_up_ratio": 0.2673992673992674,
+    "ramp_down_ratio": 0.2646243845906472
+  },
+  "Hydro": {
+    "pmin_ratio": 0.25314373974640536,
+    "ramp_up_ratio": 0.6259576580085643,
+    "ramp_down_ratio": 0.6532087679552563
+  },
+  "Natural_Gas": {
+    "pmin_ratio": 0.4833205252753733,
+    "ramp_up_ratio": 0.9582045144775773,
+    "ramp_down_ratio": 0.962485932103991
+  },
+  "Solar": {
+    "pmin_ratio": 0.039068666140489344,
+    "ramp_up_ratio": 0.5908621844601072,
+    "ramp_down_ratio": 0.5986316989737742
+  },
+  "Brown_Coal": {
+    "pmin_ratio": 0.7744228529069151,
+    "ramp_up_ratio": 0.10131467819261246,
+    "ramp_down_ratio": 0.10143563017457524
+  },
+  "Other": {
+    "pmin_ratio": 0.010555417473995916,
+    "ramp_up_ratio": 0.7381613047423758,
+    "ramp_down_ratio": 0.713934481594056
+  },
+  "Battery": {
+    "pmin_ratio": 0.00644122383252818,
+    "ramp_up_ratio": 0.3587761996779388,
+    "ramp_down_ratio": 0.3439613526570049
+  }
+}

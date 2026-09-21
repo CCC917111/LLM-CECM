@@ -1,0 +1,8 @@
+fuel_type,count,capacity_mw,share_pct,emission_factor_tco2_per_mwh
+Black Coal,22,8863,58.8,0.80
+Brown Coal,7,3286,21.8,0.80
+Hydro,4,1295,8.6,0.00
+Wind,7,900,6.0,0.00
+Solar,6,410,2.7,0.00
+Natural Gas,4,313,2.1,0.40
+Total,50,15067,100.0,

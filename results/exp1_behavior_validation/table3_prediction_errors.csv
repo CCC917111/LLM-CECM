@@ -1,0 +1,4 @@
+model,electricity_mape_pct,carbon_mape_pct,mase
+RB-Agent,18.80,2.71,0.375
+RL-Agent,14.20,3.80,0.335
+IBR-ADF-Agent,9.16,0.87,0.289
