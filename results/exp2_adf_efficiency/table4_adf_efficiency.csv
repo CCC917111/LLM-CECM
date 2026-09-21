@@ -1,0 +1,5 @@
+metric,ibr_agent,ibr_adf_agent,change
+total_llm_calls,10805,2105,-80.5%
+total_runtime_h,32.95,6.08,-81.5%
+avg_electricity_price_cny_per_mwh,45.46,45.63,deviation < 0.4%
+total_profit_cny,141654,137709,deviation < 2.8%

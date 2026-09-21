@@ -1,0 +1,92 @@
+[
+  {
+    "agent_id": "AGLHAL",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 5.0,
+      "marginal_cost_reserve": 1.6666666666666667,
+      "max_capacity": 298.5,
+      "fuel_category": "Wind",
+      "emission_factor": 0.0,
+      "real_station_name": "AGL Hallett",
+      "real_region": "SA1"
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true
+    }
+  },
+  {
+    "agent_id": "AGLSOM",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 91.0,
+      "marginal_cost_reserve": 30.333333333333332,
+      "max_capacity": 160.0,
+      "fuel_category": "Fossil",
+      "emission_factor": 0.4,
+      "real_station_name": "AGL Somerton",
+      "real_region": "VIC1"
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true
+    }
+  },
+  {
+    "agent_id": "BARCALDN",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 7.0,
+      "marginal_cost_reserve": 2.3333333333333335,
+      "max_capacity": 25.0,
+      "fuel_category": "Solar",
+      "emission_factor": 0.0,
+      "real_station_name": "Barcaldine",
+      "real_region": "QLD1"
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true
+    }
+  },
+  {
+    "agent_id": "BASTYAN",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 23.0,
+      "marginal_cost_reserve": 7.666666666666667,
+      "max_capacity": 83.0,
+      "fuel_category": "Hydro",
+      "emission_factor": 0.0,
+      "real_station_name": "Bastyan",
+      "real_region": "TAS1"
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true
+    }
+  },
+  {
+    "agent_id": "BBTHREE1",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 94.0,
+      "marginal_cost_reserve": 31.333333333333332,
+      "max_capacity": 385.0,
+      "fuel_category": "Fossil",
+      "emission_factor": 0.4,
+      "real_station_name": "Bell Bay Three",
+      "real_region": "TAS1"
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true
+    }
+  }
+]

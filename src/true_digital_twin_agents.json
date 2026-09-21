@@ -1,0 +1,1002 @@
+[
+  {
+    "agent_id": "KPP_1_0",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 95,
+      "marginal_cost_reserve": 28.5,
+      "max_capacity": 727.85,
+      "fuel_category": "Black_Coal",
+      "min_output": 392.68,
+      "ramp_up_mw": 132.09,
+      "ramp_down_mw": 132.45,
+      "emission_factor": 0.8
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true,
+      "bidding_personality": "baseload"
+    }
+  },
+  {
+    "agent_id": "VP5_1",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 85.7,
+      "marginal_cost_reserve": 25.71,
+      "max_capacity": 404.52,
+      "fuel_category": "Black_Coal",
+      "min_output": 218.24,
+      "ramp_up_mw": 73.41,
+      "ramp_down_mw": 73.61,
+      "emission_factor": 0.8
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true,
+      "bidding_personality": "baseload"
+    }
+  },
+  {
+    "agent_id": "BRAEMAR6_2",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 85.14,
+      "marginal_cost_reserve": 25.54,
+      "max_capacity": 171.56,
+      "fuel_category": "Black_Coal",
+      "min_output": 92.56,
+      "ramp_up_mw": 31.13,
+      "ramp_down_mw": 31.22,
+      "emission_factor": 0.8
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true,
+      "bidding_personality": "baseload"
+    }
+  },
+  {
+    "agent_id": "LD03_3",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 70.1,
+      "marginal_cost_reserve": 21.03,
+      "max_capacity": 290.57,
+      "fuel_category": "Black_Coal",
+      "min_output": 156.76,
+      "ramp_up_mw": 52.73,
+      "ramp_down_mw": 52.88,
+      "emission_factor": 0.8
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true,
+      "bidding_personality": "baseload"
+    }
+  },
+  {
+    "agent_id": "LD03_4",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 70.31,
+      "marginal_cost_reserve": 21.09,
+      "max_capacity": 290.57,
+      "fuel_category": "Black_Coal",
+      "min_output": 156.76,
+      "ramp_up_mw": 52.73,
+      "ramp_down_mw": 52.88,
+      "emission_factor": 0.8
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true,
+      "bidding_personality": "baseload"
+    }
+  },
+  {
+    "agent_id": "GSTONE6_5",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 74.51,
+      "marginal_cost_reserve": 22.35,
+      "max_capacity": 279.65,
+      "fuel_category": "Black_Coal",
+      "min_output": 150.87,
+      "ramp_up_mw": 50.75,
+      "ramp_down_mw": 50.89,
+      "emission_factor": 0.8
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true,
+      "bidding_personality": "baseload"
+    }
+  },
+  {
+    "agent_id": "BRAEMAR3_6",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 92.36,
+      "marginal_cost_reserve": 27.71,
+      "max_capacity": 174.4,
+      "fuel_category": "Black_Coal",
+      "min_output": 94.09,
+      "ramp_up_mw": 31.65,
+      "ramp_down_mw": 31.74,
+      "emission_factor": 0.8
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true,
+      "bidding_personality": "baseload"
+    }
+  },
+  {
+    "agent_id": "LD03_7",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 95,
+      "marginal_cost_reserve": 28.5,
+      "max_capacity": 290.57,
+      "fuel_category": "Black_Coal",
+      "min_output": 156.76,
+      "ramp_up_mw": 52.73,
+      "ramp_down_mw": 52.88,
+      "emission_factor": 0.8
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true,
+      "bidding_personality": "baseload"
+    }
+  },
+  {
+    "agent_id": "GSTONE2_8",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 89.85,
+      "marginal_cost_reserve": 26.96,
+      "max_capacity": 270.73,
+      "fuel_category": "Black_Coal",
+      "min_output": 146.06,
+      "ramp_up_mw": 49.13,
+      "ramp_down_mw": 49.27,
+      "emission_factor": 0.8
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true,
+      "bidding_personality": "baseload"
+    }
+  },
+  {
+    "agent_id": "ER03_9",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 85.07,
+      "marginal_cost_reserve": 25.52,
+      "max_capacity": 705.18,
+      "fuel_category": "Black_Coal",
+      "min_output": 380.45,
+      "ramp_up_mw": 127.97,
+      "ramp_down_mw": 128.32,
+      "emission_factor": 0.8
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true,
+      "bidding_personality": "baseload"
+    }
+  },
+  {
+    "agent_id": "BW02_10",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 94.38,
+      "marginal_cost_reserve": 28.31,
+      "max_capacity": 711.22,
+      "fuel_category": "Black_Coal",
+      "min_output": 383.71,
+      "ramp_up_mw": 129.07,
+      "ramp_down_mw": 129.43,
+      "emission_factor": 0.8
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true,
+      "bidding_personality": "baseload"
+    }
+  },
+  {
+    "agent_id": "STAN-4_11",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 71.41,
+      "marginal_cost_reserve": 21.42,
+      "max_capacity": 354.09,
+      "fuel_category": "Black_Coal",
+      "min_output": 191.04,
+      "ramp_up_mw": 64.26,
+      "ramp_down_mw": 64.44,
+      "emission_factor": 0.8
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true,
+      "bidding_personality": "baseload"
+    }
+  },
+  {
+    "agent_id": "GERMCRK_12",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 93.57,
+      "marginal_cost_reserve": 28.07,
+      "max_capacity": 32.3,
+      "fuel_category": "Black_Coal",
+      "min_output": 17.43,
+      "ramp_up_mw": 5.86,
+      "ramp_down_mw": 5.88,
+      "emission_factor": 0.8
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true,
+      "bidding_personality": "baseload"
+    }
+  },
+  {
+    "agent_id": "PUMP1_13",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 87.42,
+      "marginal_cost_reserve": 26.23,
+      "max_capacity": 247.4,
+      "fuel_category": "Black_Coal",
+      "min_output": 133.47,
+      "ramp_up_mw": 44.9,
+      "ramp_down_mw": 45.02,
+      "emission_factor": 0.8
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true,
+      "bidding_personality": "baseload"
+    }
+  },
+  {
+    "agent_id": "MPP_2_14",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 73.55,
+      "marginal_cost_reserve": 22.07,
+      "max_capacity": 458.19,
+      "fuel_category": "Black_Coal",
+      "min_output": 247.2,
+      "ramp_up_mw": 83.15,
+      "ramp_down_mw": 83.38,
+      "emission_factor": 0.8
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true,
+      "bidding_personality": "baseload"
+    }
+  },
+  {
+    "agent_id": "LD03_15",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 80.39,
+      "marginal_cost_reserve": 24.12,
+      "max_capacity": 290.57,
+      "fuel_category": "Black_Coal",
+      "min_output": 156.76,
+      "ramp_up_mw": 52.73,
+      "ramp_down_mw": 52.88,
+      "emission_factor": 0.8
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true,
+      "bidding_personality": "baseload"
+    }
+  },
+  {
+    "agent_id": "BW04_16",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 89.26,
+      "marginal_cost_reserve": 26.78,
+      "max_capacity": 686.5,
+      "fuel_category": "Black_Coal",
+      "min_output": 370.37,
+      "ramp_up_mw": 124.58,
+      "ramp_down_mw": 124.93,
+      "emission_factor": 0.8
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true,
+      "bidding_personality": "baseload"
+    }
+  },
+  {
+    "agent_id": "BW01_17",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 76.3,
+      "marginal_cost_reserve": 22.89,
+      "max_capacity": 663.12,
+      "fuel_category": "Black_Coal",
+      "min_output": 357.76,
+      "ramp_up_mw": 120.34,
+      "ramp_down_mw": 120.67,
+      "emission_factor": 0.8
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true,
+      "bidding_personality": "baseload"
+    }
+  },
+  {
+    "agent_id": "BRAEMAR3_18",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 67.68,
+      "marginal_cost_reserve": 20.3,
+      "max_capacity": 174.4,
+      "fuel_category": "Black_Coal",
+      "min_output": 94.09,
+      "ramp_up_mw": 31.65,
+      "ramp_down_mw": 31.74,
+      "emission_factor": 0.8
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true,
+      "bidding_personality": "baseload"
+    }
+  },
+  {
+    "agent_id": "GSTONE4_19",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 87.42,
+      "marginal_cost_reserve": 26.23,
+      "max_capacity": 276.15,
+      "fuel_category": "Black_Coal",
+      "min_output": 148.99,
+      "ramp_up_mw": 50.11,
+      "ramp_down_mw": 50.25,
+      "emission_factor": 0.8
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true,
+      "bidding_personality": "baseload"
+    }
+  },
+  {
+    "agent_id": "BW01_20",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 76.88,
+      "marginal_cost_reserve": 23.06,
+      "max_capacity": 663.12,
+      "fuel_category": "Black_Coal",
+      "min_output": 357.76,
+      "ramp_up_mw": 120.34,
+      "ramp_down_mw": 120.67,
+      "emission_factor": 0.8
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true,
+      "bidding_personality": "baseload"
+    }
+  },
+  {
+    "agent_id": "ER04_21",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 92.65,
+      "marginal_cost_reserve": 27.8,
+      "max_capacity": 700.4,
+      "fuel_category": "Black_Coal",
+      "min_output": 377.87,
+      "ramp_up_mw": 127.11,
+      "ramp_down_mw": 127.46,
+      "emission_factor": 0.8
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true,
+      "bidding_personality": "baseload"
+    }
+  },
+  {
+    "agent_id": "YWPS2_0",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 64.71,
+      "marginal_cost_reserve": 19.41,
+      "max_capacity": 381.7,
+      "fuel_category": "Brown_Coal",
+      "min_output": 295.6,
+      "ramp_up_mw": 38.67,
+      "ramp_down_mw": 38.72,
+      "emission_factor": 0.8
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true,
+      "bidding_personality": "baseload"
+    }
+  },
+  {
+    "agent_id": "LOYYB2_1",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 64.98,
+      "marginal_cost_reserve": 19.49,
+      "max_capacity": 585.34,
+      "fuel_category": "Brown_Coal",
+      "min_output": 453.3,
+      "ramp_up_mw": 59.3,
+      "ramp_down_mw": 59.37,
+      "emission_factor": 0.8
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true,
+      "bidding_personality": "baseload"
+    }
+  },
+  {
+    "agent_id": "LOYYB2_2",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 59.45,
+      "marginal_cost_reserve": 17.84,
+      "max_capacity": 585.34,
+      "fuel_category": "Brown_Coal",
+      "min_output": 453.3,
+      "ramp_up_mw": 59.3,
+      "ramp_down_mw": 59.37,
+      "emission_factor": 0.8
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true,
+      "bidding_personality": "baseload"
+    }
+  },
+  {
+    "agent_id": "YWPS4_3",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 64.63,
+      "marginal_cost_reserve": 19.39,
+      "max_capacity": 392.13,
+      "fuel_category": "Brown_Coal",
+      "min_output": 303.68,
+      "ramp_up_mw": 39.73,
+      "ramp_down_mw": 39.78,
+      "emission_factor": 0.8
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true,
+      "bidding_personality": "baseload"
+    }
+  },
+  {
+    "agent_id": "LYA1_4",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 65,
+      "marginal_cost_reserve": 19.5,
+      "max_capacity": 568.0,
+      "fuel_category": "Brown_Coal",
+      "min_output": 439.87,
+      "ramp_up_mw": 57.55,
+      "ramp_down_mw": 57.62,
+      "emission_factor": 0.8
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true,
+      "bidding_personality": "baseload"
+    }
+  },
+  {
+    "agent_id": "YWPS4_5",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 61.27,
+      "marginal_cost_reserve": 18.38,
+      "max_capacity": 392.13,
+      "fuel_category": "Brown_Coal",
+      "min_output": 303.68,
+      "ramp_up_mw": 39.73,
+      "ramp_down_mw": 39.78,
+      "emission_factor": 0.8
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true,
+      "bidding_personality": "baseload"
+    }
+  },
+  {
+    "agent_id": "YWPS2_6",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 58.88,
+      "marginal_cost_reserve": 17.66,
+      "max_capacity": 381.7,
+      "fuel_category": "Brown_Coal",
+      "min_output": 295.6,
+      "ramp_up_mw": 38.67,
+      "ramp_down_mw": 38.72,
+      "emission_factor": 0.8
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true,
+      "bidding_personality": "baseload"
+    }
+  },
+  {
+    "agent_id": "DRYCGT1_0",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 96.02,
+      "marginal_cost_reserve": 28.81,
+      "max_capacity": 42.39,
+      "fuel_category": "Natural_Gas",
+      "min_output": 20.49,
+      "ramp_up_mw": 40.62,
+      "ramp_down_mw": 40.8,
+      "emission_factor": 0.4
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true,
+      "bidding_personality": "peaker"
+    }
+  },
+  {
+    "agent_id": "SITHE01_1",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 87.79,
+      "marginal_cost_reserve": 26.34,
+      "max_capacity": 120.52,
+      "fuel_category": "Natural_Gas",
+      "min_output": 58.25,
+      "ramp_up_mw": 115.48,
+      "ramp_down_mw": 116.0,
+      "emission_factor": 0.4
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true,
+      "bidding_personality": "peaker"
+    }
+  },
+  {
+    "agent_id": "SITHE01_2",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 86.96,
+      "marginal_cost_reserve": 26.09,
+      "max_capacity": 120.52,
+      "fuel_category": "Natural_Gas",
+      "min_output": 58.25,
+      "ramp_up_mw": 115.48,
+      "ramp_down_mw": 116.0,
+      "emission_factor": 0.4
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true,
+      "bidding_personality": "peaker"
+    }
+  },
+  {
+    "agent_id": "QPS1_3",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 149.65,
+      "marginal_cost_reserve": 44.89,
+      "max_capacity": 29.1,
+      "fuel_category": "Natural_Gas",
+      "min_output": 14.06,
+      "ramp_up_mw": 27.88,
+      "ramp_down_mw": 28.01,
+      "emission_factor": 0.4
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true,
+      "bidding_personality": "peaker"
+    }
+  },
+  {
+    "agent_id": "CETHANA_0",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 21.49,
+      "marginal_cost_reserve": 6.45,
+      "max_capacity": 98.42,
+      "fuel_category": "Hydro",
+      "min_output": 24.92,
+      "ramp_up_mw": 61.61,
+      "ramp_down_mw": 64.29,
+      "emission_factor": 0.0
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true,
+      "bidding_personality": "default"
+    }
+  },
+  {
+    "agent_id": "MURRAY_1",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 30,
+      "marginal_cost_reserve": 9.0,
+      "max_capacity": 1138.4,
+      "fuel_category": "Hydro",
+      "min_output": 288.18,
+      "ramp_up_mw": 712.59,
+      "ramp_down_mw": 743.61,
+      "emission_factor": 0.0
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true,
+      "bidding_personality": "default"
+    }
+  },
+  {
+    "agent_id": "MEADOWBK_2",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 27.5,
+      "marginal_cost_reserve": 8.25,
+      "max_capacity": 36.1,
+      "fuel_category": "Hydro",
+      "min_output": 9.14,
+      "ramp_up_mw": 22.59,
+      "ramp_down_mw": 23.58,
+      "emission_factor": 0.0
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true,
+      "bidding_personality": "default"
+    }
+  },
+  {
+    "agent_id": "KAREEYA2_3",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 18.07,
+      "marginal_cost_reserve": 5.42,
+      "max_capacity": 22.23,
+      "fuel_category": "Hydro",
+      "min_output": 5.63,
+      "ramp_up_mw": 13.92,
+      "ramp_down_mw": 14.52,
+      "emission_factor": 0.0
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true,
+      "bidding_personality": "default"
+    }
+  },
+  {
+    "agent_id": "CAPTL_WF_0",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 5,
+      "marginal_cost_reserve": 1.5,
+      "max_capacity": 107.29,
+      "fuel_category": "Wind",
+      "min_output": 4.97,
+      "ramp_up_mw": 33.75,
+      "ramp_down_mw": 33.4,
+      "emission_factor": 0.0
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true,
+      "bidding_personality": "renewable"
+    }
+  },
+  {
+    "agent_id": "WAUBRAWF_1",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 2.71,
+      "marginal_cost_reserve": 0.81,
+      "max_capacity": 148.51,
+      "fuel_category": "Wind",
+      "min_output": 6.88,
+      "ramp_up_mw": 46.72,
+      "ramp_down_mw": 46.23,
+      "emission_factor": 0.0
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true,
+      "bidding_personality": "renewable"
+    }
+  },
+  {
+    "agent_id": "CHALLHWF_2",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 1.05,
+      "marginal_cost_reserve": 0.31,
+      "max_capacity": 41.48,
+      "fuel_category": "Wind",
+      "min_output": 1.92,
+      "ramp_up_mw": 13.05,
+      "ramp_down_mw": 12.91,
+      "emission_factor": 0.0
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true,
+      "bidding_personality": "renewable"
+    }
+  },
+  {
+    "agent_id": "CULLRGWF_3",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 4.32,
+      "marginal_cost_reserve": 1.3,
+      "max_capacity": 25.6,
+      "fuel_category": "Wind",
+      "min_output": 1.19,
+      "ramp_up_mw": 8.05,
+      "ramp_down_mw": 7.97,
+      "emission_factor": 0.0
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true,
+      "bidding_personality": "renewable"
+    }
+  },
+  {
+    "agent_id": "SAPHWF1_4",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 3.13,
+      "marginal_cost_reserve": 0.94,
+      "max_capacity": 219.52,
+      "fuel_category": "Wind",
+      "min_output": 10.17,
+      "ramp_up_mw": 69.06,
+      "ramp_down_mw": 68.34,
+      "emission_factor": 0.0
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true,
+      "bidding_personality": "renewable"
+    }
+  },
+  {
+    "agent_id": "DUNDWF1_5",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 1.17,
+      "marginal_cost_reserve": 0.35,
+      "max_capacity": 137.99,
+      "fuel_category": "Wind",
+      "min_output": 6.39,
+      "ramp_up_mw": 43.41,
+      "ramp_down_mw": 42.96,
+      "emission_factor": 0.0
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true,
+      "bidding_personality": "renewable"
+    }
+  },
+  {
+    "agent_id": "SAPHWF1_6",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 5,
+      "marginal_cost_reserve": 1.5,
+      "max_capacity": 219.52,
+      "fuel_category": "Wind",
+      "min_output": 10.17,
+      "ramp_up_mw": 69.06,
+      "ramp_down_mw": 68.34,
+      "emission_factor": 0.0
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true,
+      "bidding_personality": "renewable"
+    }
+  },
+  {
+    "agent_id": "JUNEESF1_0",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 0,
+      "marginal_cost_reserve": 0.0,
+      "max_capacity": 30.07,
+      "fuel_category": "Solar",
+      "min_output": 1.17,
+      "ramp_up_mw": 17.77,
+      "ramp_down_mw": 18.0,
+      "emission_factor": 0.0
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true,
+      "bidding_personality": "renewable"
+    }
+  },
+  {
+    "agent_id": "SUNTPSF1_1",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 5,
+      "marginal_cost_reserve": 1.5,
+      "max_capacity": 149.24,
+      "fuel_category": "Solar",
+      "min_output": 5.83,
+      "ramp_up_mw": 88.18,
+      "ramp_down_mw": 89.34,
+      "emission_factor": 0.0
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true,
+      "bidding_personality": "renewable"
+    }
+  },
+  {
+    "agent_id": "MANSLR1_2",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 1.84,
+      "marginal_cost_reserve": 0.55,
+      "max_capacity": 43.8,
+      "fuel_category": "Solar",
+      "min_output": 1.71,
+      "ramp_up_mw": 25.88,
+      "ramp_down_mw": 26.22,
+      "emission_factor": 0.0
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true,
+      "bidding_personality": "renewable"
+    }
+  },
+  {
+    "agent_id": "GANNSF1_3",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 1.23,
+      "marginal_cost_reserve": 0.37,
+      "max_capacity": 50.0,
+      "fuel_category": "Solar",
+      "min_output": 1.95,
+      "ramp_up_mw": 29.54,
+      "ramp_down_mw": 29.93,
+      "emission_factor": 0.0
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true,
+      "bidding_personality": "renewable"
+    }
+  },
+  {
+    "agent_id": "MWPS3PV1_4",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 3.37,
+      "marginal_cost_reserve": 1.01,
+      "max_capacity": 6.2,
+      "fuel_category": "Solar",
+      "min_output": 0.24,
+      "ramp_up_mw": 3.66,
+      "ramp_down_mw": 3.71,
+      "emission_factor": 0.0
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true,
+      "bidding_personality": "renewable"
+    }
+  },
+  {
+    "agent_id": "FINLYSF1_5",
+    "agent_type": "LLM",
+    "config": {
+      "marginal_cost_energy": 2.58,
+      "marginal_cost_reserve": 0.77,
+      "max_capacity": 130.98,
+      "fuel_category": "Solar",
+      "min_output": 5.12,
+      "ramp_up_mw": 77.39,
+      "ramp_down_mw": 78.41,
+      "emission_factor": 0.0
+    },
+    "llm_config": {
+      "model": "gemma-3-27b-it",
+      "enable_adf": false,
+      "enable_ibr_cr": true,
+      "bidding_personality": "renewable"
+    }
+  }
+]

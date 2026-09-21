@@ -1,0 +1,6 @@
+metric,mean,sd,min,max,cv
+total_profit_cny,398607,32585,378262,436190,8.2%
+avg_price_cny_per_mwh,80.33,0.77,79.68,81.18,0.96%
+price_sd_cny_per_mwh,2.41,0.32,2.08,2.72,
+price_mape_pct,14.65,0.70,14.10,15.44,4.8%
+runtime_min,7.34,0.18,7.19,7.54,2.5%

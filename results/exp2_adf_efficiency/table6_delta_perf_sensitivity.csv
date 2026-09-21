@@ -1,0 +1,4 @@
+delta_perf,setting,llm_calls,electricity_mape_pct,price_volatility_sd
+0.05,Conservative,8450,8.41,2.35
+0.15,Base,2105,8.76,2.41
+0.25,Aggressive,840,12.33,4.12

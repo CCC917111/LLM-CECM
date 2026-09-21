@@ -1,0 +1,33 @@
+# LLM-CECM dependencies (Python 3.10 - 3.12)
+
+# Scientific computing
+numpy>=1.24.0,<2.0.0      # PyPower compatibility
+pandas>=1.5.0
+scipy>=1.10.0
+
+# Power system optimisation (IEEE 118-bus OPF clearing)
+pypower>=5.1.0
+
+# LLM access (Google Generative Language REST API)
+requests>=2.28.0
+python-dotenv>=1.0.0
+
+# Visualisation
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# Reinforcement-learning baseline (PPO)
+gymnasium>=0.29.1
+stable-baselines3>=2.3.0
+torch>=2.1.0
+
+# Utilities
+tqdm>=4.65.0
+pyyaml>=6.0
+
+# Testing / style checks
+pytest>=7.0.0
+flake8>=6.0.0
+
+# Optional: re-download AEMO market data (src/data_integration/nemosis_fetcher.py)
+# nemosis>=3.0.0
