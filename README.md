@@ -45,13 +45,17 @@ Simulation outputs (per-round CSV records, behaviour logs in JSON and figures) a
 
 ### Reproduce the Paper Experiments
 
-| Paper section | What is compared | Command |
-|---|---|---|
-| IV-B, Table III, Figs. 3-6 | RB-Agent vs. RL-Agent vs. IBR-ADF-Agent | `make exp1` |
-| IV-C, Tables IV-V, Fig. 7 | IBR-Agent (no ADF) vs. IBR-ADF-Agent | `make exp2` |
-| IV-E, Table VI | ADF threshold δ<sub>perf</sub> ∈ {0.05, 0.15, 0.25} | `make sensitivity` |
-| IV-D | ADF-Agent (Level-0 only) vs. IBR-ADF-Agent | `make exp3` |
-| all of the above | – | `make all` |
+| Paper section | What is compared | Agents / horizon | Command |
+|---|---|---|---|
+| IV-B, Table III, Figs. 3-6 | RB-Agent vs. RL-Agent vs. IBR-ADF-Agent | 50 agents, 10 rounds | `make exp1` |
+| IV-C, Tables IV-V, Fig. 7 | IBR-Agent (no ADF) vs. IBR-ADF-Agent | 50 agents, 20 rounds | `make exp2` |
+| IV-E, Table VI | ADF threshold δ<sub>perf</sub> ∈ {0.05, 0.15, 0.25} | 50 agents, 20 rounds | `make sensitivity` |
+| IV-D | ADF-Agent (Level-0 only) vs. IBR-ADF-Agent | 50 agents, 30 rounds | `make exp3` |
+| all of the above | – | – | `make all` |
+
+Every experiment simulates the full population of 50 generator agents defined in
+`src/true_digital_twin_agents.json`. The simulation horizon (`num_rounds`) and the scenario data of each experiment are
+set in `src/experiments/experiment_configs.py` and can be changed there.
 
 Each target maps onto `run_experiments.py`, e.g.
 `python run_experiments.py --experiment exp2 --variant with_adf --delta-perf 0.05`.

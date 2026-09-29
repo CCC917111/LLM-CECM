@@ -1,0 +1,47 @@
+cff-version: 1.2.0
+title: "LLM-CECM: A Simulation Framework for Strategic Generation Behavior in Coupled Electricity-Carbon Markets"
+message: "If you use this software, please cite the associated paper."
+type: software
+authors:
+  - family-names: Cheng
+    given-names: Yuheng
+  - family-names: Chen
+    given-names: Yike
+  - family-names: Zhou
+    given-names: Xiyuan
+  - family-names: Tan
+    given-names: Xuning
+  - family-names: Zhao
+    given-names: Huan
+  - family-names: Liu
+    given-names: Wenxuan
+  - family-names: Zhao
+    given-names: Junhua
+preferred-citation:
+  type: article
+  title: "LLM-CECM: A simulation framework for strategic generation behavior in coupled electricity-carbon markets"
+  authors:
+    - family-names: Cheng
+      given-names: Yuheng
+    - family-names: Chen
+      given-names: Yike
+    - family-names: Zhou
+      given-names: Xiyuan
+    - family-names: Tan
+      given-names: Xuning
+    - family-names: Zhao
+      given-names: Huan
+    - family-names: Liu
+      given-names: Wenxuan
+    - family-names: Zhao
+      given-names: Junhua
+  journal: "Renewable Energy"
+  volume: 273
+  year: 2026
+  url: "https://www.sciencedirect.com/science/article/pii/S0960148126009651"
+keywords:
+  - coupled electricity-carbon market
+  - large language model
+  - multi-agent simulation
+  - bounded rationality
+  - strategy convergence
