@@ -106,10 +106,11 @@ Files: [`table4_adf_efficiency.csv`](exp2_adf_efficiency/table4_adf_efficiency.c
 
 ## Experiment 3 – Strategy Convergence under IBR-CR
 
-Five coal generators compete for limited transmission capacity in a congested sub-region of the IEEE 118-bus network
-over a 72-round horizon. The IBR-ADF-Agent (full counterfactual reasoning) is compared with a baseline that uses
-Level-0 myopic best response only. Convergence is defined as a rolling price standard deviation below 3 CNY/MWh for
-10 consecutive rounds.
+The full 50-agent system is simulated; convergence is assessed in a congested sub-region of the IEEE 118-bus network,
+where five coal generators compete for limited transmission capacity and strategy oscillation is most likely. The
+IBR-ADF-Agent (full counterfactual reasoning) is compared with a baseline that uses Level-0 myopic best response only.
+Convergence is defined as a rolling price standard deviation below 3 CNY/MWh for 10 consecutive rounds, tracked over a
+72-round horizon.
 
 | Metric | Level-0 baseline | IBR-ADF-Agent |
 |---|---:|---:|
