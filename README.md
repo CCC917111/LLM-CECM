@@ -254,14 +254,21 @@ and LLM client are in `src/simulation/config.py`. The most relevant switches are
 
 ### Data
 
-* **Generator agents** – `true_digital_twin_agents.json` holds the 50 agents (Table II of the paper). It is produced by
-  `generate_true_digital_twin_agents.py` from the AEMO *NEM Generation Information* workbook and a NEMWEB
-  `DISPATCH_UNIT_SCADA` file placed under `src/downloads/`.
-* **Market prices** – `data_integration/real_aemo_data_config.json` contains the NSW1 spot prices used as ground truth;
-  `data_integration/nemosis_fetcher.py` re-downloads them with [NEMOSIS](https://github.com/UNSW-CEEM/NEMOSIS)
-  (`pip install nemosis`).
+* **Generator agents** – `true_digital_twin_agents.json` includes the 50-agent configuration. To generate a new
+  configuration, use the July 2025 AEMO *NEM Generation Information* workbook and April 2022 NEMWEB
+  `DISPATCH_UNIT_SCADA` file under `src/downloads/`; exact links and filenames are in [Input data](docs/data.md).
+* **Market prices** – [the bundled JSON](src/data_integration/real_aemo_data_config.json) and
+  [timestamped CSV](src/data_integration/nsw1_hourly_rrp_20240715_17.csv) provide 72 NSW1 hourly RRP reference
+  values for 15–17 July 2024, in AUD/MWh. They are calculated from AEMO 5-minute `DISPATCHPRICE` records.
+  The retained first-hour value uses 11 observations after excluding the window-start timestamp; later hours
+  use 12 each. [Input data](docs/data.md) explains the boundary, source checksum and offline verification.
+  Experiment 1 reads the first 10 values; the existing experiment 3 scenario remains separately configured.
 * **RL baseline** – the PPO policies in `models/multi_agent_high_price/` were trained offline with
   `experiments/training/train_multi_agent_rl.py` (Stable-Baselines3).
+
+See [Input data: downloads, directory layout and verification](docs/data.md) for the supplied files and
+the external files needed to regenerate inputs. Publishing the reference series does not establish a new
+simulation result or change the experiment defaults.
 
 ### Extending the Framework
 
