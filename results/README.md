@@ -1,5 +1,11 @@
 # Retained Reference Results
 
+**Provenance is incomplete.** These files were published with the framework in an AI-assisted initial commit.
+Their presence in this repository does not establish that each table or image is an original experiment export.
+The published abstract supports the 80.5%/81.5% reductions and 5.49-to-2.69 volatility proxy; the remaining
+figures, including round 31, the 72-round horizon and +12.3% profit, have not yet been checked against the full
+paper. See [source provenance](../docs/provenance.md) before attributing these files to an original run.
+
 This folder retains summary tables and figures associated with the study. Tables are provided as CSV files and figures as PNG images.
 Running the experiments with `run_experiments.py` writes fresh outputs to `src/results/` instead, so these reference
 results are never overwritten.

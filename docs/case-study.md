@@ -2,6 +2,11 @@
 
 [Project home](../README.md) · [Reference results](../results/README.md) · [Reproducibility status](reproducibility.md)
 
+**Source status:** the retained tables and images were published during AI-assisted repository preparation.
+Only selected headline effects have been checked against the published abstract; the origin of each retained
+artifact is still being established. See [the provenance note](provenance.md).
+They have not been established as original-run records.
+
 ## The question
 
 How do generators adjust their bids when a carbon-policy announcement changes the expected cost of producing
@@ -12,7 +17,7 @@ LLM-CECM models 50 generation companies on the IEEE 118-bus system. Each agent c
 costs with market observations, beliefs about competitors and a memory of earlier decisions. It submits
 structured electricity and carbon bids, then receives clearing results and profit feedback.
 
-![The study's framework diagram](figures/fig1_framework.png)
+![Retained repository framework diagram](figures/fig1_framework.png)
 
 ## A policy-shock scenario
 
@@ -28,7 +33,7 @@ The sequence to inspect is:
 4. Adaptive Decision Frequency (ADF) decides whether another full reasoning call is needed or a cheaper
    Fast-Mode adjustment is sufficient.
 
-The existing study image illustrates coupled-market behavior. It is a retained reference artifact;
+The existing repository image illustrates coupled-market behavior. Its original source remains unverified;
 the underlying per-round run is not bundled for interactive replay.
 
 ![Retained coupled-market figure](../results/exp1_behavior_validation/figures/fig5_coupled_market.png)
