@@ -5,6 +5,10 @@
 This ledger separates released software, retained research summaries and the materials needed to reproduce
 them. An offline test passing is evidence about the implementation, not confirmation of a reported effect.
 
+First establish [where the summaries came from](provenance.md). This checklist states requirements for a
+confirmed experiment; it does not establish that the repository's 72-round description was the original
+experiment protocol or that its historical records exist.
+
 ## Released configurations
 
 | Experiment | Variants | Default rounds | Status |
