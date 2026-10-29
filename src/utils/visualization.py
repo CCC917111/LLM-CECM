@@ -1,6 +1,9 @@
 # utils/visualization.py
 import os
 import json
+import logging
+import math
+from numbers import Real
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -14,7 +17,7 @@ class ResultVisualizer:
     Responsible for reading CSV result files, generating various visualization charts, and saving them to the specified directory.
     """
     
-    def __init__(self, results_file: str, output_dir: str = None, agents_config_path: Optional[str] = None, ground_truth_prices: List[float] = None, ground_truth_carbon_prices: List[float] = None):
+    def __init__(self, results_file: str, output_dir: str = None, agents_config_path: Optional[str] = None, ground_truth_prices: List[float] = None, ground_truth_carbon_prices: List[float] = None, ground_truth_price_unit: Optional[str] = None):
         """
         Initialize the visualization tool.
         
@@ -22,12 +25,15 @@ class ResultVisualizer:
             results_file: CSV result file path
             output_dir: Chart output directory, defaults to the visualization subdirectory under the results_file directory
             agents_config_path: Path to the agent configuration JSON file to load agent categories.
-            ground_truth_prices: A list of ground truth electricity prices for comparison.
-            ground_truth_carbon_prices: A list of ground truth carbon prices for comparison.
+            ground_truth_prices: Electricity reference indexed by zero-based simulation round.
+            ground_truth_carbon_prices: Scenario carbon-price reference indexed by round.
+            ground_truth_price_unit: Explicit electricity-reference unit. Only CNY/MWh can
+                share an axis with the simulated prices; no currency conversion is performed.
         """
         self.results_file = results_file
         self.ground_truth_prices = ground_truth_prices
         self.ground_truth_carbon_prices = ground_truth_carbon_prices
+        self.ground_truth_price_unit = ground_truth_price_unit
         
         # 设置输出目录
         if output_dir is None:
@@ -494,6 +500,58 @@ class ResultVisualizer:
         
         return output_file
     
+    def _align_reference_to_rounds(self, prices, reference_name):
+        """Select reference values by round ID, skipping invalid optional overlays.
+
+        A short run can use a longer reference. Missing rounds are not compressed:
+        rounds 2 and 5 select reference entries 2 and 5, rather than entries 0 and 1.
+        """
+        if prices is None:
+            return None
+        try:
+            if len(prices) == 0:
+                return None
+            if isinstance(prices, (str, bytes)):
+                raise ValueError("reference must be a numeric sequence")
+            if 'round' not in self.df.columns:
+                raise ValueError("results have no round column")
+            rounds = self.df['round'].drop_duplicates().tolist()
+            if not rounds:
+                return None
+            indices = []
+            for round_id in rounds:
+                if (isinstance(round_id, (bool, np.bool_))
+                        or not isinstance(round_id, Real)
+                        or not math.isfinite(float(round_id))
+                        or round_id < 0
+                        or not float(round_id).is_integer()):
+                    raise ValueError("round IDs must be finite, zero-based non-negative integers")
+                index = int(round_id)
+                if index >= len(prices):
+                    raise ValueError(f"round {index} exceeds the {len(prices)} reference values")
+                indices.append(index)
+            aligned = [prices[index] for index in indices]
+            if any(isinstance(value, (bool, np.bool_))
+                   or not isinstance(value, Real)
+                   or not math.isfinite(float(value)) for value in aligned):
+                raise ValueError("selected reference values must be finite numbers")
+            return rounds, aligned
+        except (TypeError, ValueError, IndexError, KeyError) as error:
+            logging.warning("Skipping %s overlay: %s", reference_name, error)
+            return None
+
+    def _electricity_reference(self):
+        reference = self._align_reference_to_rounds(
+            self.ground_truth_prices, "electricity reference")
+        if reference is not None and self.ground_truth_price_unit != "CNY/MWh":
+            logging.warning(
+                "Skipping electricity reference overlay: reference unit %r does not match "
+                "simulated prices in CNY/MWh; no currency conversion is applied.",
+                self.ground_truth_price_unit,
+            )
+            return None
+        return reference
+
     def visualize_bid_strategies(self) -> str:
         """
         Visualize agent bidding strategies.
@@ -565,13 +623,16 @@ class ResultVisualizer:
         # Add market clearing price
         plt.plot(self.data['round'], self.data['energy_price'], 'k--', linewidth=3, label='Market Clearing Price', zorder=3)
         
-        # 绘制Ground Truth RRP
-        if self.ground_truth_prices and len(self.ground_truth_prices) == len(self.df['round'].unique()):
-            plt.plot(self.df['round'].unique(), self.ground_truth_prices, color='green', linestyle='-', linewidth=3, label='Ground Truth RRP', zorder=4, alpha=0.8)
+        # References require matching units and explicit alignment to round IDs.
+        reference = self._electricity_reference()
+        if reference is not None:
+            rounds, prices = reference
+            plt.plot(rounds, prices, color='green', linestyle='-', linewidth=3,
+                     label='Scenario price reference (CNY/MWh)', zorder=4, alpha=0.8)
         
         plt.title('Energy Bid Price Strategy', fontsize=16)
         plt.xlabel('Round', fontsize=14)
-        plt.ylabel('Price', fontsize=14)
+        plt.ylabel('Price (CNY/MWh)', fontsize=14)
         
         # 将图例放在图表底部
         plt.legend(bbox_to_anchor=(0.5, -0.15), loc='upper center', ncol=5, fontsize=10)
@@ -605,10 +666,13 @@ class ResultVisualizer:
             ax1.plot(self.data['round'], self.data['carbon_clearing_price'], 'b--', 
                     marker='s', linewidth=2, label='Clearing Price')
         
-        # 绘制Ground Truth碳价
-        if self.ground_truth_carbon_prices and len(self.ground_truth_carbon_prices) == len(self.df['round'].unique()):
-            ax1.plot(self.df['round'].unique(), self.ground_truth_carbon_prices, color='orange', 
-                    linestyle='-', linewidth=3, marker='D', label='Ground Truth ACCU Price', zorder=4, alpha=0.8)
+        # These are scenario settings, with no established observed ACCU provenance.
+        reference = self._align_reference_to_rounds(
+            self.ground_truth_carbon_prices, "carbon reference")
+        if reference is not None:
+            rounds, prices = reference
+            ax1.plot(rounds, prices, color='orange', linestyle='-', linewidth=3,
+                     marker='D', label='Scenario carbon price reference', zorder=4, alpha=0.8)
         
         ax1.set_title('Carbon Price Trends', fontsize=14)
         ax1.set_xlabel('Round', fontsize=12)

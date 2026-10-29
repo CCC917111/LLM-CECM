@@ -34,6 +34,9 @@ class ExperimentRunner:
             config: 实验配置字典
             experiment_name: 实验名称（用于日志和结果标识）
         """
+        from experiments.experiment_configs import validate_experiment_config
+
+        validate_experiment_config(config)
         self.config = config
         self.experiment_name = experiment_name
         self.results_dir = Path(config["logging"]["results_file_csv"]).parent
@@ -137,6 +140,10 @@ class ExperimentRunner:
         Returns:
             实验结果字典
         """
+        # Keep numerical RNG setup in execution, outside the dependency-free
+        # configuration / dry-run path and before any agents are prepared.
+        import numpy as np
+        np.random.seed(self.config.get("llm_client", {}).get("random_seed", 42))
         start_time = time.time()
         
         logging.info("="*80)
@@ -203,6 +210,7 @@ class ExperimentRunner:
             results_file=results_csv,
             agents_config_path="true_digital_twin_agents.json",
             ground_truth_prices=ground_truth_rrp,
+            ground_truth_price_unit=real_data.get("ground_truth_rrp_unit"),
             ground_truth_carbon_prices=ground_truth_carbon,
             output_dir=str(self.results_dir / "visualization")
         )
@@ -223,56 +231,30 @@ def run_experiment(experiment_id: str, variant: str = None, **config_kwargs) -> 
     Returns:
         实验结果字典
     """
-    from experiments.experiment_configs import get_experiment_config
-    
-    # 根据实验ID和变体获取配置
-    if experiment_id == "exp1":
-        # variant: "RB" | "RL" | "IBR-ADF"
-        agent_type = variant or "IBR-ADF"
-        config = get_experiment_config("exp1", agent_type=agent_type)
-        experiment_name = f"Exp1_BehaviorValidation_{agent_type}"
-        
-    elif experiment_id == "exp2":
-        # variant: "with_adf" | "without_adf"
-        enable_adf = (variant != "without_adf")
-        exp2_kwargs = {"enable_adf": enable_adf}
-        delta_perf = config_kwargs.pop("delta_perf", None)
-        if delta_perf is not None:
-            exp2_kwargs["delta_perf"] = float(delta_perf)
-        config = get_experiment_config("exp2", **exp2_kwargs)
-        experiment_name = f"Exp2_ADF_Efficiency_{'with' if enable_adf else 'without'}_ADF"
-        if delta_perf is not None and enable_adf:
-            experiment_name += f"_dperf{float(delta_perf):g}"
-        
-    elif experiment_id == "exp3":
-        # variant: "with_ibr_cr" | "without_ibr_cr"
-        enable_ibr_cr = (variant != "without_ibr_cr")
-        config = get_experiment_config("exp3", enable_ibr_cr=enable_ibr_cr)
-        experiment_name = f"Exp3_IBR_CR_Effectiveness_{'with' if enable_ibr_cr else 'without'}_IBR_CR"
-        
-    else:
-        raise ValueError(f"无效的实验ID: {experiment_id}")
-    
-    # delta_perf 只对 exp2 有意义，其余实验忽略
-    config_kwargs.pop("delta_perf", None)
+    from experiments.experiment_configs import build_experiment_config
 
-    # 应用config_kwargs（如quick-test的num_rounds）
-    for key, value in config_kwargs.items():
-        if key in config:
-            config[key] = value
+    config = build_experiment_config(experiment_id, variant, **config_kwargs)
+    experiment_name = config["simulation_name"]
     
     # 创建并运行实验
     runner = ExperimentRunner(config, experiment_name)
     return runner.run()
 
 
-def run_all_experiments() -> List[Dict[str, Any]]:
+def run_all_experiments(num_rounds: int = None) -> List[Dict[str, Any]]:
     """
     运行所有实验
     
     Returns:
         所有实验结果的列表
     """
+    from experiments.experiment_configs import EXPERIMENT_VARIANTS, build_experiment_config
+
+    overrides = {} if num_rounds is None else {"num_rounds": num_rounds}
+    # Validate the entire batch before the first model call or output write.
+    for experiment_id, variants in EXPERIMENT_VARIANTS.items():
+        for variant in variants:
+            build_experiment_config(experiment_id, variant, **overrides)
     all_results = []
     
     print("="*80)
@@ -283,21 +265,21 @@ def run_all_experiments() -> List[Dict[str, Any]]:
     print("\n📊 实验一：智能体行为模式验证")
     for agent_type in ["RB", "RL", "IBR-ADF"]:
         print(f"\n运行实验一 - {agent_type} 智能体...")
-        result = run_experiment("exp1", variant=agent_type)
+        result = run_experiment("exp1", variant=agent_type, **overrides)
         all_results.append(result)
     
     # 实验二：ADF效率评估
     print("\n\n⚡ 实验二：ADF架构效率与精度评估")
     for variant in ["without_adf", "with_adf"]:
         print(f"\n运行实验二 - {variant}...")
-        result = run_experiment("exp2", variant=variant)
+        result = run_experiment("exp2", variant=variant, **overrides)
         all_results.append(result)
     
     # 实验三：IBR-CR机制验证
     print("\n\n🎯 实验三：IBR-CR机制博弈有效性验证")
     for variant in ["without_ibr_cr", "with_ibr_cr"]:
         print(f"\n运行实验三 - {variant}...")
-        result = run_experiment("exp3", variant=variant)
+        result = run_experiment("exp3", variant=variant, **overrides)
         all_results.append(result)
     
     print("\n" + "="*80)

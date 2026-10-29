@@ -96,7 +96,10 @@ generator retains 10 hours, so use the supplied files and verification command f
 
 ## How the current experiments consume prices
 
-Experiment 1 runs 10 rounds and uses the first 10 values of the bundled JSON. Experiment 2 and the existing
+Experiment 1 runs 10 rounds and loads the full reference from the bundled JSON. Its observed prices are
+AUD/MWh while the simulation is labelled CNY/MWh, so the visualizer skips that overlay without a declared
+conversion. Compatible comparison series are aligned by explicit round index, rather than by equal lengths.
+Experiment 2 and the existing
 30-round experiment 3 define their own scenario arrays in `src/experiments/experiment_configs.py`.
 The published 72-hour reference is available for an explicitly configured evaluation; publishing it does
 not switch these scenarios to 72 rounds, change operational assumptions, or reproduce the paper's results.
