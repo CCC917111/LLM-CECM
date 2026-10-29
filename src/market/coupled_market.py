@@ -226,13 +226,17 @@ class CoupledMarket:
         
         # 合并电力和碳市场的智能体结果，并计算利润
         agent_outcomes = {}
-        for agent_id in agent_results.keys():
+        # OPF may omit zero-capacity / zero-quantity participants (for example
+        # coal units during an outage). They can still trade carbon and must
+        # receive settlement feedback. Build outcomes from submitted actions,
+        # rather than only agents with an electricity award.
+        for agent_id in agent_actions:
             # 获取原始报价和私有信息
             original_bid = agent_actions.get(agent_id, {}).get('electricity', {})
             private_info = agent_private_info.get(agent_id, {})
             
             # 获取出清结果
-            elec_result = agent_results[agent_id]
+            elec_result = agent_results.get(agent_id, {})
             cleared_energy = elec_result.get('cleared_energy', 0)
             cleared_reserve = elec_result.get('cleared_reserve', 0)
             
@@ -262,7 +266,9 @@ class CoupledMarket:
             profit = revenue - cost
             
             agent_outcomes[agent_id] = {
-                **agent_results[agent_id],  # 电力市场结果
+                **elec_result,  # 电力市场结果（未出清的参与者默认为零）
+                'cleared_energy': cleared_energy,
+                'cleared_reserve': cleared_reserve,
                 'carbon': agent_carbon_results.get(agent_id, {}),  # 碳市场结果
                 'submitted_bid': original_bid,  # 原始电力报价
                 'adjusted_bid': adjusted_bids_map.get(agent_id, {}),  # 调整后的电力报价（含碳成本）

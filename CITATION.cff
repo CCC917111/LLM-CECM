@@ -11,6 +11,8 @@ authors:
     given-names: Xiyuan
   - family-names: Tan
     given-names: Xuning
+  - family-names: Gui
+    given-names: Xuanang
   - family-names: Zhao
     given-names: Huan
   - family-names: Liu
@@ -29,6 +31,8 @@ preferred-citation:
       given-names: Xiyuan
     - family-names: Tan
       given-names: Xuning
+    - family-names: Gui
+      given-names: Xuanang
     - family-names: Zhao
       given-names: Huan
     - family-names: Liu
@@ -37,7 +41,9 @@ preferred-citation:
       given-names: Junhua
   journal: "Renewable Energy"
   volume: 273
+  start: "126139"
   year: 2026
+  doi: "10.1016/j.renene.2026.126139"
   url: "https://www.sciencedirect.com/science/article/pii/S0960148126009651"
 keywords:
   - coupled electricity-carbon market

@@ -5,8 +5,134 @@
 定义论文中三大核心实验的配置参数
 """
 
-import copy
+import math
+from numbers import Real
+from pathlib import Path
 from typing import Dict, Any
+
+
+EXPERIMENT_VARIANTS = {
+    "exp1": ("RB", "RL", "IBR-ADF"),
+    "exp2": ("without_adf", "with_adf"),
+    "exp3": ("without_ibr_cr", "with_ibr_cr"),
+}
+DEFAULT_VARIANTS = {
+    "exp1": "IBR-ADF", "exp2": "with_adf", "exp3": "with_ibr_cr",
+}
+DEFAULT_ROUNDS = {"exp1": 10, "exp2": 20, "exp3": 30}
+SCENARIO_SERIES = (
+    "gas_prices_by_round", "coal_outage_rates_by_round", "demand_increase_by_round",
+    "solar_capacity_factors", "wind_capacity_factors",
+)
+REFERENCE_SERIES = ("ground_truth_rrp", "ground_truth_carbon_price")
+
+
+def resolve_variant(experiment_id: str, variant: str = None) -> str:
+    """Resolve an explicit experiment/variant pair without importing the simulator."""
+    if experiment_id not in EXPERIMENT_VARIANTS:
+        raise ValueError(f"Unknown experiment: {experiment_id!r}")
+    resolved = DEFAULT_VARIANTS[experiment_id] if variant is None else variant
+    if resolved not in EXPERIMENT_VARIANTS[experiment_id]:
+        choices = ", ".join(EXPERIMENT_VARIANTS[experiment_id])
+        raise ValueError(f"Invalid variant {resolved!r} for {experiment_id}; choose {choices}")
+    return resolved
+
+
+def validate_experiment_config(config: Dict[str, Any]) -> Dict[str, int]:
+    """Require complete finite input series; never invent values for later rounds."""
+    rounds = config.get("num_rounds")
+    if isinstance(rounds, bool) or not isinstance(rounds, int) or rounds <= 0:
+        raise ValueError("num_rounds must be a positive integer")
+
+    coverage = {}
+
+    def check_series(path, values):
+        if not isinstance(values, (list, tuple)):
+            raise ValueError(f"{path} must be a list or tuple of finite numbers")
+        if len(values) < rounds:
+            raise ValueError(
+                f"{path} covers {len(values)} rounds, but num_rounds={rounds}; "
+                "provide an explicit complete scenario or shorten the run"
+            )
+        if any(isinstance(value, bool) or not isinstance(value, Real)
+               or not math.isfinite(value) for value in values):
+            raise ValueError(f"{path} must contain only finite numbers")
+        coverage[path] = len(values)
+
+    market = config.get("market", {})
+    for key in ("demand_profile", "reserve_profile"):
+        check_series(f"market.{key}", market.get(key))
+    if coverage["market.demand_profile"] != coverage["market.reserve_profile"]:
+        raise ValueError("market.demand_profile and market.reserve_profile must have equal lengths")
+
+    dynamics = config.get("real_data_dynamics", {})
+    if dynamics.get("enabled", False):
+        for key in SCENARIO_SERIES:
+            check_series(f"real_data_dynamics.{key}", dynamics.get(key))
+    # Reference data are plotted even when operational dynamics are disabled.
+    for key in REFERENCE_SERIES:
+        if key in dynamics:
+            check_series(f"real_data_dynamics.{key}", dynamics[key])
+    return coverage
+
+
+def build_experiment_config(experiment_id: str, variant: str = None,
+                            **overrides) -> Dict[str, Any]:
+    """Shared configuration contract for the CLI preview and actual execution."""
+    variant = resolve_variant(experiment_id, variant)
+    delta_perf = overrides.pop("delta_perf", None)
+    if delta_perf is not None and (experiment_id != "exp2" or variant != "with_adf"):
+        raise ValueError("delta_perf applies only to exp2 with variant with_adf")
+    if experiment_id == "exp1":
+        config = get_exp1_config(agent_type=variant)
+    elif experiment_id == "exp2":
+        kwargs = {} if delta_perf is None else {"delta_perf": delta_perf}
+        config = get_exp2_config(enable_adf=variant == "with_adf", **kwargs)
+    else:
+        config = get_exp3_config(enable_ibr_cr=variant == "with_ibr_cr")
+    unknown = set(overrides) - set(config)
+    if unknown:
+        raise ValueError(f"Unknown configuration overrides: {', '.join(sorted(unknown))}")
+    config.update(overrides)
+    validate_experiment_config(config)
+    if "num_rounds" in overrides:
+        # Explicit shortened / quick runs must not replace full-run outputs.
+        logging_config = dict(config["logging"])
+        for key in ("results_file_csv", "results_file_json", "log_file"):
+            if key in logging_config:
+                path = Path(logging_config[key])
+                logging_config[key] = str(path.parent / f"rounds_{config['num_rounds']}" / path.name)
+        logging_config["visualization_dir"] = str(
+            Path(logging_config["results_file_csv"]).parent / "visualization"
+        )
+        config["logging"] = logging_config
+    return config
+
+
+def describe_experiment(experiment_id: str, variant: str = None, **overrides) -> Dict[str, Any]:
+    """Return a JSON-ready offline plan, without creating agents or output files."""
+    variant = resolve_variant(experiment_id, variant)
+    config = build_experiment_config(experiment_id, variant, **overrides)
+    description = {
+        "experiment": experiment_id,
+        "variant": variant,
+        "effective_rounds": config["num_rounds"],
+        "released_default_rounds": DEFAULT_ROUNDS[experiment_id],
+        "series_coverage": validate_experiment_config(config),
+        "reference_price_unit": config["real_data_dynamics"].get("ground_truth_rrp_unit"),
+        "reference_price_source": config["real_data_dynamics"].get("ground_truth_rrp_source"),
+        "output_directory": str(Path(config["logging"]["results_file_csv"]).parent),
+        "model_calls_made": False,
+    }
+    if experiment_id == "exp3":
+        description["paper_result_horizon"] = 72
+        description["reproduction_gap"] = (
+            "The released exp3 scenario covers 30 rounds; paper summaries report a "
+            "72-round comparison and convergence at round 31. Original per-round "
+            "records, the full 72-round scenario and the sub-region convergence "
+            "calculation are not supplied here. This plan does not reproduce those results."
+        )
+    return description
 
 
 def get_base_config() -> Dict[str, Any]:
@@ -76,6 +202,7 @@ def get_exp1_config(agent_type: str = "IBR-ADF") -> Dict[str, Any]:
     Returns:
         实验一配置字典
     """
+    resolve_variant("exp1", agent_type)
     config = get_base_config()
     
     # 实验名称
@@ -108,22 +235,12 @@ def get_exp1_config(agent_type: str = "IBR-ADF") -> Dict[str, Any]:
     
     # 加载真实AEMO数据
     import json
-    from pathlib import Path
-    
-    real_data_file = Path("data_integration/real_aemo_data_config.json")
-    if real_data_file.exists():
-        try:
-            with open(real_data_file, 'r') as f:
-                real_aemo_config = json.load(f)
-            ground_truth_rrp = real_aemo_config["real_data_dynamics"]["ground_truth_rrp"]
-            data_source = real_aemo_config["real_data_dynamics"].get("data_source", "AEMO NEMWEB")
-            print(f"✓ 使用真实AEMO数据: {data_source}")
-        except Exception as e:
-            print(f"⚠️ 加载真实数据失败，使用默认值: {e}")
-            ground_truth_rrp = [85.3, 92.1, 88.5, 95.4, 105.2, 115.8, 135.7, 180.9, 210.4, 225.6]
-    else:
-        print(f"⚠️ 未找到真实数据文件，使用默认值")
-        ground_truth_rrp = [85.3, 92.1, 88.5, 95.4, 105.2, 115.8, 135.7, 180.9, 210.4, 225.6]
+    real_data_file = Path(__file__).resolve().parents[1] / "data_integration/real_aemo_data_config.json"
+    try:
+        real_aemo_config = json.loads(real_data_file.read_text(encoding="utf-8"))
+        ground_truth_rrp = real_aemo_config["real_data_dynamics"]["ground_truth_rrp"]
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        raise ValueError(f"Cannot load the bundled NSW1 observed price reference: {real_data_file}") from exc
     
     # 真实数据动态配置
     config["real_data_dynamics"] = {
@@ -135,6 +252,8 @@ def get_exp1_config(agent_type: str = "IBR-ADF") -> Dict[str, Any]:
         "solar_capacity_factors": [0.35, 0.40, 0.45, 0.50, 0.55, 0.50, 0.45, 0.40, 0.35, 0.30],
         "wind_capacity_factors": [0.6, 0.5, 0.4, 0.3, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7],
         "ground_truth_rrp": ground_truth_rrp,  # 使用真实AEMO数据
+        "ground_truth_rrp_unit": "AUD/MWh",
+        "ground_truth_rrp_source": "Observed AEMO NSW1 hourly RRP, 15-17 July 2024 (AEST)",
         "ground_truth_carbon_price": [144.0, 146.4, 148.8, 153.6, 158.4, 163.2, 168.0, 170.4, 172.8, 170.4],
     }
     
@@ -214,6 +333,8 @@ def get_exp2_config(enable_adf: bool = True, delta_perf: float = ADF_BASE_DELTA_
         "solar_capacity_factors": [0.35, 0.40, 0.45, 0.50, 0.55, 0.50, 0.45, 0.40, 0.35, 0.30] * 2,
         "wind_capacity_factors": [0.6, 0.5, 0.4, 0.3, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7] * 2,
         "ground_truth_rrp": [85.3, 92.1, 88.5, 95.4, 105.2, 115.8, 135.7, 180.9, 210.4, 225.6] * 2,
+        "ground_truth_rrp_unit": "CNY/MWh",
+        "ground_truth_rrp_source": "Synthetic scenario reference; not observed NSW1 RRP",
         "ground_truth_carbon_price": [144.0, 146.4, 148.8, 153.6, 158.4, 163.2, 168.0, 170.4, 172.8, 170.4] * 2,
     }
     
@@ -294,6 +415,8 @@ def get_exp3_config(enable_ibr_cr: bool = True) -> Dict[str, Any]:
         "solar_capacity_factors": base_solar * 3,
         "wind_capacity_factors": base_wind * 3,
         "ground_truth_rrp": base_rrp * 3,
+        "ground_truth_rrp_unit": "CNY/MWh",
+        "ground_truth_rrp_source": "Synthetic scenario reference; not observed NSW1 RRP",
         "ground_truth_carbon_price": base_carbon * 3,
     }
     

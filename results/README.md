@@ -1,10 +1,14 @@
-# Experimental Results
+# Retained Reference Results
 
-This folder collects the results reported in the paper. Tables are provided as CSV files and figures as PNG images.
+This folder retains summary tables and figures associated with the study. Tables are provided as CSV files and figures as PNG images.
 Running the experiments with `run_experiments.py` writes fresh outputs to `src/results/` instead, so these reference
 results are never overwritten.
 
-All LLM agents use Gemma-3-27B. Reported values are averages over independent Monte Carlo runs.
+The summaries identify the LLM backbone as Gemma-3-27B. This release retains six aggregate CSV tables and five
+result images, without the underlying per-run Monte Carlo logs or experiment 3 per-round trajectories.
+The values below have not been independently regenerated from the current released configurations.
+The table labelled N = 10 reports that population; the underlying run count cannot be audited from the image alone.
+See [reproducibility status](../docs/reproducibility.md) and the [five-minute case study](../docs/case-study.md).
 
 ```
 results/
@@ -17,8 +21,12 @@ results/
 ## Simulation Setup (Table II)
 
 IEEE 118-bus network (54 generator buses, 186 lines) with 50 generator agents calibrated on AEMO registered NEM units,
-total installed capacity ≈ 15,067 MW. Marginal costs range from 0 to 149.65 CNY/MWh. Electricity ground truth: AEMO
-NEMWEB 30-minute spot prices, NSW1 region, 15 July 2024.
+total installed capacity ≈ 15,067 MW. Marginal costs range from 0 to 149.65 CNY/MWh.
+The separately bundled observed electricity reference consists of 72 NSW1 hourly price values for 15–17 July 2024,
+in AUD/MWh, aggregated from AEMO 5-minute records. See [input data](../docs/data.md) for exact boundaries and provenance.
+The released scenarios are 10/20/30 rounds; the 72-hour reference does not establish a completed 72-round run.
+Reference summaries below label simulated prices as CNY/MWh. No exchange-rate conversion connecting these units
+is retained, so the listed error metrics should not be interpreted as newly verified comparisons to the bundled series.
 
 | Fuel type | Count | Capacity (MW) | Share | Emission factor (tCO₂/MWh) |
 |---|---:|---:|---:|---:|
@@ -35,9 +43,9 @@ File: [`exp0_setup/table2_agent_fuel_types.csv`](exp0_setup/table2_agent_fuel_ty
 
 A "future carbon-quota tightening" policy is announced before it takes effect, together with a coal outage and a
 renewable surge. The IBR-ADF-Agent is compared with a rule-based agent (marginal cost × (1 + markup), markup ∈
-[0.05, 0.15]) and a PPO agent trained offline for 100,000 episodes.
+[0.05, 0.15]) and an offline-trained PPO agent.
 
-**Table III – prediction errors against real AEMO prices**
+**Retained Table III – reported prediction errors against AEMO prices**
 
 | Model | Elec. MAPE (%) | Carb. MAPE (%) | MASE |
 |---|---:|---:|---:|
@@ -77,6 +85,9 @@ surplus carbon quotas).
 
 **Table V – IBR-ADF-Agent over repeated runs (N = 10)**
 
+Table V is a separate retained summary, with different price, profit and runtime totals from Table IV.
+It must not be combined with Table IV as one matched comparison or used to reconstruct missing runs.
+
 | Metric | Mean | SD | Min | Max | CV |
 |---|---:|---:|---:|---:|---:|
 | Total profit (CNY) | 398,607 | 32,585 | 378,262 | 436,190 | 8.2 % |
@@ -105,6 +116,11 @@ Files: [`table4_adf_efficiency.csv`](exp2_adf_efficiency/table4_adf_efficiency.c
 [`table6_delta_perf_sensitivity.csv`](exp2_adf_efficiency/table6_delta_perf_sensitivity.csv)
 
 ## Experiment 3 – Strategy Convergence under IBR-CR
+
+**Release gap:** the current `make exp3` configuration runs only 30 rounds. The following retained summary
+describes a 72-round study and cannot be verified by that command. The original full scenario, congested-subregion
+definition, rolling-window details and per-round records are not included. The configuration's `tracking` flags
+are declarations, not an implementation of this convergence calculation.
 
 The full 50-agent system is simulated; convergence is assessed in a congested sub-region of the IEEE 118-bus network,
 where five coal generators compete for limited transmission capacity and strategy oscillation is most likely. The

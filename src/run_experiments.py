@@ -18,16 +18,17 @@ LLM-CECM 统一实验入口
 """
 
 import argparse
+import json
 import sys
 from pathlib import Path
 
 # 添加项目根目录到路径
 sys.path.insert(0, str(Path(__file__).parent))
 
-from experiments.experiment_runner import run_experiment, run_all_experiments
+from experiments.experiment_configs import EXPERIMENT_VARIANTS, describe_experiment
 
 
-def main():
+def main(argv=None):
     """主函数"""
     parser = argparse.ArgumentParser(
         description="LLM-CECM 实验管理系统",
@@ -93,66 +94,67 @@ def main():
         help='仅exp2：ADF业绩驱动阈值δ_perf（论文Table VI：0.05/0.15/0.25，默认0.15）'
     )
     
-    parser.add_argument(
+    horizon = parser.add_mutually_exclusive_group()
+    horizon.add_argument(
         '--quick-test',
         action='store_true',
         help='快速测试模式（减少仿真轮次，仅用于验证）'
     )
     
-    args = parser.parse_args()
-    
-    # 打印欢迎信息
-    print("="*80)
-    print("🎯 LLM-CECM 统一实验入口")
-    print("   基于论文大纲的电碳耦合市场仿真实验")
-    print("="*80)
-    
+    horizon.add_argument(
+        '--rounds', type=int, default=None,
+        help='显式缩短轮数；所有输入序列必须覆盖指定时长，all时应用于每个变体'
+    )
+    parser.add_argument(
+        '--dry-run', action='store_true',
+        help='离线输出有效配置、输入覆盖及已知复现缺口，不初始化模型或写结果'
+    )
+    args = parser.parse_args(argv)
+    if args.experiment == 'all' and args.variant is not None:
+        parser.error('--variant cannot be combined with --experiment all')
+    if args.experiment == 'all' and args.delta_perf is not None:
+        parser.error('--delta-perf cannot be combined with --experiment all; select exp2 with_adf')
+
+    config_kwargs = {}
+    if args.delta_perf is not None:
+        config_kwargs['delta_perf'] = args.delta_perf
+    if args.quick_test:
+        config_kwargs['num_rounds'] = 3
+    elif args.rounds is not None:
+        config_kwargs['num_rounds'] = args.rounds
+
     try:
         if args.experiment == 'all':
-            # 运行所有实验
-            print("\n🚀 运行所有实验...")
-            if args.variant:
-                print("⚠️  警告: 运行所有实验时，--variant参数将被忽略")
-            
-            results = run_all_experiments()
-            
-            print("\n" + "="*80)
-            print("✅ 所有实验完成")
-            print(f"   完成实验数: {len(results)}")
-            print("="*80)
-            
+            plans = [
+                describe_experiment(experiment, variant, **config_kwargs)
+                for experiment, variants in EXPERIMENT_VARIANTS.items()
+                for variant in variants
+            ]
         else:
-            # 运行单个实验
-            print(f"\n🚀 运行实验: {args.experiment}")
-            if args.variant:
-                print(f"   变体: {args.variant}")
-            
-            config_kwargs = {}
-            if args.delta_perf is not None:
-                if args.experiment != 'exp2':
-                    print("⚠️  --delta-perf 仅对 exp2 生效，已忽略")
-                else:
-                    print(f"   δ_perf = {args.delta_perf}")
-                    config_kwargs['delta_perf'] = args.delta_perf
-            if args.quick_test:
-                print("   ⚡ 快速测试模式")
-                config_kwargs['num_rounds'] = 3  # 减少轮次用于快速测试
-            
-            result = run_experiment(
-                args.experiment,
-                variant=args.variant,
-                **config_kwargs
-            )
-            
-            print("\n" + "="*80)
-            print("✅ 实验完成")
-            print(f"   实验名称: {result['experiment_name']}")
-            print(f"   耗时: {result['elapsed_time']/60:.2f} 分钟")
-            print(f"   结果目录: {result['results_dir']}")
-            print("="*80)
-        
+            plans = [describe_experiment(args.experiment, args.variant, **config_kwargs)]
+    except (ValueError, TypeError) as exc:
+        parser.error(str(exc))
+
+    if args.dry_run:
+        preview = {'experiments': plans} if args.experiment == 'all' else plans[0]
+        print(json.dumps(preview, indent=2, ensure_ascii=False))
         return 0
-        
+
+    # Keep the preview and argument-validation path free of model / torch imports.
+    from experiments.experiment_runner import run_experiment, run_all_experiments
+
+    print("LLM-CECM: running released experiment configurations")
+    try:
+        if args.experiment == 'all':
+            results = run_all_experiments(**config_kwargs)
+            print(f"Completed {len(results)} experiment variants")
+        else:
+            result = run_experiment(args.experiment, variant=args.variant, **config_kwargs)
+            print(f"Completed: {result['experiment_name']}")
+            print(f"Elapsed: {result['elapsed_time']/60:.2f} minutes")
+            print(f"Results: {result['results_dir']}")
+        return 0
+
     except KeyboardInterrupt:
         print("\n\n⚠️  用户中断实验")
         return 130
