@@ -55,7 +55,6 @@ def _norm_fuel_category(raw: str) -> str:
     return 'Other'
 
 def _load_excel_mapping(excel_path: str) -> int:
-    global EXCEL_MAP
     try:
         df = pd.read_excel(excel_path, sheet_name='ExistingGeneration&NewDevs', header=1)
         c_asset = next((c for c in df.columns if 'asset type' in str(c).lower()), None)
