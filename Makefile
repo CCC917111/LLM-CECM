@@ -4,7 +4,15 @@ VENV   ?= .venv
 PY      = $(VENV)/bin/python
 SRC     = src
 
-.PHONY: install run exp1 exp2 exp3 all quick sensitivity check-style test clean
+.PHONY: install inspect inspect-all run exp1 exp2 exp3 all quick sensitivity check-style test clean
+
+## Inspect Experiment 3 without dependencies, model calls or simulation outputs
+inspect:
+	$(PYTHON) $(SRC)/run_experiments.py --experiment exp3 --dry-run
+
+## Inspect all seven released variants without model calls
+inspect-all:
+	$(PYTHON) $(SRC)/run_experiments.py --experiment all --dry-run
 
 ## Create a virtual environment and install dependencies
 install:
@@ -38,7 +46,7 @@ exp3:
 	cd $(SRC) && ../$(PY) run_experiments.py --experiment exp3 --variant without_ibr_cr
 	cd $(SRC) && ../$(PY) run_experiments.py --experiment exp3 --variant with_ibr_cr
 
-## Every experiment in the paper
+## Every released experiment configuration (not a full paper replication)
 all:
 	cd $(SRC) && ../$(PY) run_experiments.py --experiment all
 

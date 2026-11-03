@@ -323,11 +323,10 @@ SIMULATION_CONFIG = {
 
 # --- 辅助函数，用于从配置中获取参数 ---
 def get_config():
-    # 设置固定随机种子，确保智能体参数可重现
-    import numpy as np
+    # Configuration generation uses the standard library only. NumPy is seeded
+    # by ExperimentRunner.run() when an actual simulation starts.
     import random
     random.seed(42)
-    np.random.seed(42)  # 也固定numpy的seed
     
     num_agents_per_batch = 10  # 每个批次生成10个智能体
     num_batches = 5  # 分5个批次
