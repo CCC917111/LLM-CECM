@@ -1,6 +1,6 @@
 # Experimental Results
 
-This folder collects the results reported in the paper. Tables are provided as CSV files and figures as PNG images.
+This folder collects the reference results of the experiments. Tables are provided as CSV files and figures as PNG images.
 Running the experiments with `run_experiments.py` writes fresh outputs to `src/results/` instead, so these reference
 results are never overwritten.
 
@@ -11,7 +11,7 @@ results/
 ├── exp0_setup/                     # Table II   – agent population
 ├── exp1_behavior_validation/       # Table III, Figs. 3-6
 ├── exp2_adf_efficiency/            # Tables IV-VI, Fig. 7
-└── exp3_ibr_cr_effectiveness/      # Section IV-D convergence results
+└── exp3_ibr_cr_effectiveness/      # convergence results
 ```
 
 ## Simulation Setup (Table II)
